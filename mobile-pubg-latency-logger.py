@@ -20,7 +20,7 @@ def video_ac():
     vid = cv2.VideoCapture("C:\\Users\\emre.baltaci\\Desktop\\python_isleri\\pubgdeneme.mp4")
     if (vid.isOpened()== False):
         print("Video acilamadi, url yanlis olabilir kontrol ediniz")
-
+    i=1
     for i in range(1):#while(vid.isOpened())
         ret,frame = vid.read()#videoyu acar ret 0 donderse fail 1se saglikli
         if ret == True:
@@ -31,7 +31,7 @@ def video_ac():
             end_point = (130,515)
             cropped = cv2.rectangle(resized, start_point, end_point, (255,0,0), 2)
             
-            cropped_latency = latency_crop(frame)
+            cropped_latency = latency_crop(frame,i)
             
             if cv2.waitKey(2000) & 0xFF == ord('q'):#q inputu gelirse ekrandan çıkar
                 break
@@ -50,9 +50,10 @@ def resize_video(frame):
     resized = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
     return resized
 
-def latency_crop(frame):
+def latency_crop(frame,counter):
     yaziyeri = frame[515*2:540*2,92*2:130*2]
-    cv2.imwrite('cropped_latency_degeri.jpg',yaziyeri)
+    yazilacakyazi = 'C:\\Users\\emre.baltaci\\Desktop\\python_isleri\\latency_listesi\\' + 'cropped_latency_degeri_' + str(counter) + '.jpg'
+    cv2.imwrite(yazilacakyazi,yaziyeri)
     return yaziyeri
 if __name__ == "__main__":
     main()
